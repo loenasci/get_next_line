@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loda-sil <loda-sil@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loena <loena@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 12:41:21 by loda-sil          #+#    #+#             */
-/*   Updated: 2025/09/05 18:05:31 by loda-sil         ###   ########.fr       */
+/*   Updated: 2025/09/08 12:07:13 by loena            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,13 @@ char	*ft_strjoin(char *s1, char *s2)
 	if (!result)
 		return (NULL);
 	while (s1[i])
-		result[i++] = s1[j++];
-	j = 0;
+	{
+		result[i] = s1[i];
+		i++;
+	}
 	while (s2[j])
 		result[i + j] = s2[j++];
 	result[i + j] = '\0';
 	return (result);
 }
+

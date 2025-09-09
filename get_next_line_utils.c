@@ -3,32 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loena <loena@student.42.fr>                +#+  +:+       +#+        */
+/*   By: loda-sil <loda-sil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 12:41:21 by loda-sil          #+#    #+#             */
-/*   Updated: 2025/09/08 12:07:13 by loena            ###   ########.fr       */
+/*   Updated: 2025/09/09 17:44:50 by loda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-//FT_STRCHR
-
-//FT_STRDUP
-
-//FT_STRLEN
-
-//FT_SUBSTR
-
-//FT_STRJOIN
-
 char	*ft_strdup(const char *s)
 {
 	char	*str;
-	int		i;
+	size_t	i;
+	size_t	len;
 
+	if (!s)
+		return (NULL);
 	i = 0;
-	str = (char *)malloc((ft_strlen(s) + 1) * sizeof(char));
+	len = ft_strlen(s);
+	str = (char *)malloc((len + 1) * sizeof(char));
 	if (!str)
 		return (NULL);
 	while (s[i])
@@ -36,7 +30,7 @@ char	*ft_strdup(const char *s)
 		str[i] = s[i];
 		i++;
 	}
-	str[i] = 0;
+	str[i] = '\0';
 	return (str);
 }
 
@@ -44,6 +38,8 @@ size_t	ft_strlen(const char *s)
 {
 	size_t	length;
 
+	if (!s)
+		return (0);
 	length = 0;
 	while (s[length])
 		length++;
@@ -53,7 +49,7 @@ size_t	ft_strlen(const char *s)
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*substr;
-	int		i;
+	size_t	i;
 
 	i = 0;
 	if (!s)
@@ -65,7 +61,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	substr = (char *)malloc((len + 1) * sizeof(char));
 	if (!substr)
 		return (NULL);
-	while (i < len)
+	while (i < len && s[start + i])
 	{
 		substr[i] = s[start + i];
 		i++;
@@ -93,7 +89,9 @@ char	*ft_strjoin(char *s1, char *s2)
 
 	i = 0;
 	j = 0;
-	result = (char *) malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	if (!s1 || !s2)
+		return (0);
+	result = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
 	if (!result)
 		return (NULL);
 	while (s1[i])
@@ -102,8 +100,10 @@ char	*ft_strjoin(char *s1, char *s2)
 		i++;
 	}
 	while (s2[j])
-		result[i + j] = s2[j++];
+	{
+		result[i + j] = s2[j];
+		j++;
+	}
 	result[i + j] = '\0';
 	return (result);
 }
-

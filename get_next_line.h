@@ -3,15 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loena <loena@student.42.fr>                +#+  +:+       +#+        */
+/*   By: loda-sil <loda-sil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 12:41:26 by loda-sil          #+#    #+#             */
-/*   Updated: 2025/09/08 12:02:56 by loena            ###   ########.fr       */
+/*   Updated: 2025/09/08 15:52:03 by loda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
 
 # include <unistd.h>
 # include <stdlib.h>

@@ -6,7 +6,7 @@
 /*   By: loda-sil <loda-sil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 12:41:24 by loda-sil          #+#    #+#             */
-/*   Updated: 2025/09/09 19:02:35 by loda-sil         ###   ########.fr       */
+/*   Updated: 2025/09/11 17:15:58 by loda-sil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void	*free_and_null(char *ptr)
 	return (NULL);
 }
 
-char	*set_line(char *line)
+char	*split_and_store(char *line)
 {
-	char	*cache;
+	char	*next_line_content;
 	size_t	i;
 
 	i = 0;
@@ -28,40 +28,40 @@ char	*set_line(char *line)
 		i++;
 	if (line[i] == '\0' || line[i + 1] == '\0')
 		return (NULL);
-	cache = ft_substr(line, i + 1, ft_strlen(line) - i);
-	if (*cache == '\0')
-		return (free_and_null(cache));
+	next_line_content = ft_substr(line, i + 1, ft_strlen(line) - i);
+	if (*next_line_content == '\0')
+		return (free_and_null(next_line_content));
 	line[i + 1] = '\0';
-	return (cache);
+	return (next_line_content);
 }
 
-char	*fill_line_buffer(int fd, char *cache, char *buffer)
+char	*read_until_newline(int fd, char *line_content, char *buffer)
 {
 	int		bytes_read;
-	char	*temp;
+	char	*old_content;
 
 	bytes_read = 1;
 	while (bytes_read > 0)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read == -1)
-			return (free_and_null(cache));
+			return (free_and_null(line_content));
 		if (bytes_read == 0)
 			break ;
 		buffer[bytes_read] = '\0';
-		if (!cache)
+		if (!line_content)
 		{
-			cache = ft_strdup("");
-			if (!cache)
+			line_content = ft_strdup("");
+			if (!line_content)
 				return (NULL);
 		}
-		temp = cache;
-		cache = ft_strjoin(temp, buffer);
-		free(temp);
+		old_content = line_content;
+		line_content = ft_strjoin(old_content, buffer);
+		free(old_content);
 		if (ft_strchr(buffer, '\n'))
 			break ;
 	}
-	return (cache);
+	return (line_content);
 }
 
 char	*get_next_line(int fd)
@@ -81,13 +81,13 @@ char	*get_next_line(int fd)
 		buffer = NULL;
 		return (NULL);
 	}
-	line = fill_line_buffer(fd, cache, buffer);
+	line = read_until_newline(fd, cache, buffer);
 	free(buffer);
 	if (!line)
 	{
 		cache = NULL;
 		return (NULL);
 	}
-	cache = set_line(line);
+	cache = split_and_store(line);
 	return (line);
 }

@@ -1,10 +1,6 @@
 # get_next_line
 
-![42 Badge](https://img.shields.io/badge/42-get_next_line-blue)
-
-## 📝 Description
-
-`get_next_line` is a C function that reads a line from a file or file descriptor, allowing you to read a file line by line through successive calls.
+`get_next_line` is a C function that reads a line from a file or file descriptor, allowing you to read a file line by line through successive calls. This project is part of the 42 School curriculum.
 
 ## 🔍 Features
 
